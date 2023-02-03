@@ -1,0 +1,113 @@
+<h2>Template: Básicos</h2>
+<hr />
+<div class="row">
+  <div class="col">
+    <form (ngSubmit)="guardar()" #miFormulario="ngForm" autocomplete="off">
+      <!-- campo de producto -->
+      <div class="mb-3 row">
+        <label for="" class="col-sm-3 col-form-label">Producto</label>
+        <div class="col-sm-9">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Nombre del producto"
+            ngModel
+            name="producto"
+            required
+            minlength="3"
+          />
+          <span class="form-text text-danger" *ngIf="nombreValido()"
+            >Debe de ser de 3 caracteres o mas
+          </span>
+        </div>
+      </div>
+      <!-- campo de Precio -->
+      <div class="mb-3 row">
+        <label for="" class="col-sm-3 col-form-label">Precio</label>
+        <div class="col-sm-9">
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Precio del producto"
+            ngModel
+            name="precio"
+            required
+            min="0"
+          />
+          <span class="form-text text-danger" *ngIf="precioValido()"
+            >El precio debe ser 0 o mayor</span
+          >
+        </div>
+      </div>
+      <!-- campo de Existencias -->
+      <div class="mb-3 row">
+        <label for="" class="col-sm-3 col-form-label">Existencias</label>
+        <div class="col-sm-9">
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Existencias del producto"
+            ngModel
+            name="existencias"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <label for="" class="col-sm-3 col-form-label">Imagen</label>
+        <div class="col-sm-9">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Url de la Imagen"
+            ngModel
+            name="imagen"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button
+            type="submit"
+            class="btn btn-primary float-end"
+            [disabled]="miFormulario.invalid"
+          >
+            Guardar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <span>Valid</span>
+    <pre>{{ miFormulario.valid }}</pre>
+
+    <span>Pristine</span>
+    <pre>{{ miFormulario.pristine }}</pre>
+
+    <span>Touched</span>
+    <pre>{{ miFormulario.touched }}</pre>
+
+    <span>Value</span>
+    <pre>{{ miFormulario.value | json }}</pre>
+  </div>
+</div>
+
+<h2>Productos</h2>
+<hr />
+<div class="container">
+  <div class="row fondo" *ngFor="let producto of productos">
+    <div class="col">
+      <h3>Producto: {{ producto.producto }}</h3>
+      <p>Precio: {{ producto.precio | currency : "EUR" }}</p>
+      <p>Existencias: {{ producto.existencias }}</p>
+    </div>
+    <div class="col">
+      <img [src]="producto.imagen ? producto.imagen : 'assets/no_image.webp'" />
+    </div>
+  </div>
+</div>

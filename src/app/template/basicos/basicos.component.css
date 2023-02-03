@@ -1,0 +1,16 @@
+.fondo{
+    width:100%;
+    background-color: blue;
+    color: white;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+h3 , p{
+margin: 10px;
+}
+img{
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    border-radius: 5px;
+}

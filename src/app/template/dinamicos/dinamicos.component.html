@@ -1,0 +1,106 @@
+<h2>Template: Dinámicos</h2>
+<hr />
+<form (ngSunmit)="guardar()" autocomplete="off" #miFormulario="ngForm">
+  <!-- nombre -->
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Nombre</label>
+    <div class="col-sm-9">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Nombre"
+        [ngModel]="persona.nombre"
+        name="nombre"
+        required
+      />
+
+      <span
+        class="form-text text-danger"
+        *ngIf="
+          miFormulario.controls['nombre']?.errors &&
+          miFormulario.controls['nombre']?.touched
+        "
+        >Este campo es oblicatorio
+      </span>
+    </div>
+  </div>
+  <!-- agregar -->
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Agregar</label>
+    <div class="col-sm-9">
+      <div class="input-group">
+        <input
+          class="form-control"
+          placeholder="Agregar favorito"
+          [(ngModel)]="nuevoJuego"
+          name="nuevoJuego"
+          (keyup.enter)="agregarJuego()"
+        />
+        <button
+          class="btn btn-outline-primary"
+          type="button"
+          (click)="agregarJuego()"
+        >
+          agregar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Listas de juego favoritos -->
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">favoritos</label>
+    <div class="col-sm-9">
+      <div
+        *ngFor="let juego of persona.favoritos; let i = index"
+        class="input-group mb-1"
+      >
+        <input
+          class="form-control"
+          [(ngModel)]="juego.nombre"
+          name="favorito_{{ i }}"
+          required
+        />
+        <button
+          class="btn btn-outline-danger"
+          type="button"
+          (click)="eliminar(i)"
+        >
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <button
+        type="button"
+        (click)="guardar()"
+        class="btn btn-primary float-end mt-3"
+        [disabled]="miFormulario.invalid"
+      >
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>
+
+<div class="row">
+  <div class="col">
+    <span>Valid</span>
+    <pre>{{ miFormulario.valid }}</pre>
+
+    <span>Pristine</span>
+    <pre>{{ miFormulario.pristine }}</pre>
+
+    <span>Touched</span>
+    <pre>{{ miFormulario.touched }}</pre>
+
+    <span>Value</span>
+    <pre>{{ miFormulario.value | json }}</pre>
+  </div>
+</div>
+
+<span>Persona</span>
+<pre>{{ persona | json }}</pre>
